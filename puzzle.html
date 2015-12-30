@@ -4,8 +4,6 @@
 <meta charset="utf-8">
 <title>Gregable.com: Regular Expression Crossword Puzzle</title>
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<link rel="canonical" href="http://gregable.com/2015/12/regular-expression-crossword-puzzle.html">
-<link rel="prerender" href="http://gregable.com/2015/12/regular-expression-crossword-puzzle.html">
 <link rel="author" href="http://gregable.com/">
 <style>
 hextable {
@@ -189,6 +187,12 @@ function init() {
     inputElements[i].onkeyup = function() {
       this.select();
       updateLabels(this.id);
+      window.localStorage[this.id] = this.value;
+    }
+    // See if we have a stored value.
+    var val = window.localStorage[inputElements[i].id];
+    if (val) {
+      inputElements[i].value = val;
     }
   }
   
@@ -208,7 +212,6 @@ function inputFocus() {
 }
 
 function updateLabels(hexId) {
-  window.onbeforeunload = confirmOnPageExit;
   var labelIds = labelsToUpdate(hexId);  
   for (var i = 0; i < labelIds.length; i++) {
     var label = document.getElementById(labelIds[i]);
@@ -304,17 +307,6 @@ function rotateClockwise() {
 function rotateCounter() {
   deg -= 120;
   updateToNewRotation();
-}
-
-function confirmOnPageExit(e) {
-  // If we haven't been passed the event get the window.event
-  e = e || window.event;
-  var message = 'Are you sure you want to leave, any progress will be lost';
-  if (e) {
-    e.returnValue = message;
-  }
-
-  return message;
 }
 
 function catchKeyDown(e) {
@@ -587,5 +579,8 @@ in order to view from a different angle. Current inputs will rotate as well.
 <p>Puzzle originally part of the
 <a href="http://www.mit.edu/activities/puzzle/2013/">2013 MIT Mystery Puzzle Hunt</a>, created by Dan Gulotta from an idea by Palmer Mubane.
 </p>
+
 <p>More background at <a href="http://gregable.com/2015/12/regular-expression-crossword-puzzle.html">http://gregable.com/2015/12/regular-expression-crossword-puzzle.html</a>
+
+<p>This version, modified by <a href="http://ian.mckellar.org/">Ian McKellar</a> uses HTML5 localStorage to store progress.</p>
 </body>
