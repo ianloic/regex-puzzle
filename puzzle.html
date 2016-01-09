@@ -190,9 +190,11 @@ function init() {
       window.localStorage[this.id] = this.value;
     }
     // See if we have a stored value.
-    var val = window.localStorage[inputElements[i].id];
+    var id = inputElements[i].id;
+    var val = window.localStorage[id];
     if (val) {
       inputElements[i].value = val;
+      updateLabels(id);
     }
   }
   
