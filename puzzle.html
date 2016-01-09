@@ -177,7 +177,7 @@ a.button {
 
 // Register as a service worker, if possible.
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  navigator.serviceWorker.register('sw.js').then(function(registration) {
     // Registration was successful.
   }).catch(function(err) {
     // Registration failed.
